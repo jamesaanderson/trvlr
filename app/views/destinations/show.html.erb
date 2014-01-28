@@ -6,7 +6,7 @@
 
 <%= javascript_tag do %>
   var mapOptions = {
-    zoom: 16,
+    zoom: 17,
     center: new google.maps.LatLng(<%= @destination.lat %>, <%= @destination.lng %>)
   };
   var map = new google.maps.Map($('#map')[0], mapOptions);
