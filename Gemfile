@@ -33,3 +33,7 @@ gem 'geocoder'
 gem 'foursquare2'
 gem 'forecast_io'
 gem 'google_places'
+
+group :production do
+  gem 'rails_12factor'
+end
