@@ -1,0 +1,50 @@
+<div id='map' style='width: 100%; height: 400px;'></div>
+<div id='forecast'>
+  <% @destination.daily_forecast.each do |forecast| %>
+    <%= image_tag "#{forecast.icon}.png", class: 'forecast-icon', alt: forecast.summary %>
+    <%= forecast.temperatureMax %>°
+  <% end %>
+</div>
+
+<%= javascript_tag do %>
+  var mapOptions = {
+    zoom: 16,
+    center: new google.maps.LatLng(<%= @destination.lat %>, <%= @destination.lng %>)
+  };
+  var map = new google.maps.Map($('#map')[0], mapOptions);
+
+  <% @destination.venues.each do |venue| %>
+    var marker = new google.maps.Marker({
+      position: new google.maps.LatLng(<%= venue.location.lat %>, <%= venue.location.lng %>),
+      map: map,
+      title: '<%= venue.name %>'
+    });
+
+    var contentString = '<h4><%= venue.name %></h4><p><%= venue.location.address %></p>'
+    var infoWindow = new google.maps.InfoWindow();
+    google.maps.event.addListener(marker, 'click', (function(marker, contentString) {
+      return function() {
+        infoWindow.setContent(contentString);
+        infoWindow.open(map, marker);
+      }
+    })(marker, contentString));
+  <% end %>
+
+  <% @destination.lodging.each do |lodging| %>
+    var marker = new google.maps.Marker({
+      position: new google.maps.LatLng(<%= lodging.lat %>, <%= lodging.lng %>),
+      map: map,
+      title: '<%= lodging.name %>'
+    });
+
+
+    var contentString = '<h4><%= lodging.name %></h4><p style="color:goldenrod;"><%= lodging.rating %> <span class="glyphicon glyphicon-star"></span></p><p><%= lodging.vicinity %></p>'
+    var infoWindow = new google.maps.InfoWindow();
+    google.maps.event.addListener(marker, 'click', (function(marker, contentString) {
+      return function() {
+        infoWindow.setContent(contentString);
+        infoWindow.open(map, marker);
+      }
+    })(marker, contentString));
+  <% end %>
+<% end %>
