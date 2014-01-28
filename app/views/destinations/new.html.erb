@@ -1,6 +1,7 @@
+<h2>Where are you going?</h2>
 <%= form_tag '/destinations', method: :post do %>
   <div class='input-group'>
-    <%= text_field_tag 'name', nil, placeholder: 'Principality of Sealand', class: 'form-control input-lg' %>
+    <%= text_field_tag 'name', nil, placeholder: 'Los Angeles, CA', class: 'form-control input-lg' %>
     <span class='input-group-btn'>
       <%= submit_tag 'Search', class: 'btn btn-primary btn-lg' %>
     </span>
