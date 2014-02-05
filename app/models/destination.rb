@@ -10,7 +10,7 @@ class Destination
   end
 
   def venues
-    FOURSQUARE_CLIENT.search_venues(ll: "#{lat},#{lng}", radius: 2000).groups.first.items
+    FOURSQUARE_CLIENT.search_venues(near: name).venues
   end
 
   def daily_forecast
